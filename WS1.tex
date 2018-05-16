@@ -1,0 +1,322 @@
+% 
+\documentclass[11pt]{article}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry} 
+\geometry{letterpaper}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{mathabx}
+\usepackage{hyperref}
+
+% = Customize Section Headings =
+\usepackage[noindentafter]{titlesec}    % default to noindent after
+% sections
+\usepackage{graphicx, enumitem}
+\usepackage{hyperref}
+\titleformat{\subsection}[runin]{\bf}{\small}{\compact}{}[]
+\titleformat{\section}{\bf}{\large}{\compact}{}[]
+\titlespacing{\section}{0pt}{20pt}{2pt}
+\titlespacing{\subsection}{1pt}{8pt}{5pt}
+
+% = Common Astrophysics Symbols =
+\newcommand{\rsol}{R_\odot}
+\newcommand{\msol}{M_\odot}
+\newcommand{\lsol}{L_\odot}
+\newcommand{\E}[1]{\hspace{-0.01in}\times\hspace{-0.02in}10^{#1}}  % Scientific notation, '3\E{8}' --> '3x10^8'
+\newcommand{\sol}[1]{{\noindent\color{blue} #1}}     % Solutions in blue
+\newcommand{\power}[2]{\ensuremath{#1\times 10^{#2}}}
+
+\newcommand{\note}[1]{{\noindent\color{red} \textbf{#1}}} % Notes in red
+\newcommand{\trf}[1]{\textrm{\footnotesize{#1}}}
+\newcommand{\trt}[1]{\textrm{\tiny{#1}}}
+\newcommand{\then}{ \hspace{0.1in} \Longrightarrow \hspace{0.1in} }
+
+\newcommand\plotoneman[2]{\centering \leavevmode
+  \includegraphics[width=#2\linewidth]{#1}}
+
+\renewcommand{\section}[1]{\textbf{\underline{#1}}}
+
+% = Setup Header =
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}   % remove fancyhdr header line
+\lhead{Dynamics \& Virial Theorem}
+\rhead{Banneker Institute 2017}
+\cfoot{\thepage}
+
+\title{Worksheet 1\\Dynamics Overview\\Instructor: Ben Cook}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}                   % add header to first page
+
+\vspace{-0.6in}
+
+During this week's Astro-Skills module, we will be discussing one of
+the most useful (and simple) equations in astronomy, the
+\textit{Virial Theorem}. Before we get there, however, it is important
+to warm-up by reviewing a few principles from dynamics.\\
+
+\section{Kinetic and Potential Energy}\\
+
+For an object in motion with mass $m$ and velocity $v$, its kinetic
+energy $K$ (the energy due to its motion) is given by:
+\begin{equation}
+  K = \frac{1}{2}mv^2\,.
+\end{equation}
+If multiple objects in a system (such as multiple stars in a galaxy)
+are all in motion, then the total kinetic energy of the system is
+simply the sum of the individual kinetic energies of each object.
+
+Potential energy $U$ is a measure of how much stored energy an object
+has (technically, the amount of work it is capable of performing) at
+its current position. The difference in potential energy between two
+points ($\mathbf{r}_1$ and $\mathbf{r}_2$) is determined by the force
+($\mathbf{F}$, as a vector) applied along the trajectory between the points:
+\begin{equation}
+  \Delta U = - \int_{\mathbf{r}_1}^{\mathbf{r}_2} \mathbf{F} \cdot d\mathbf{r}\,.
+\end{equation}
+If working in one-dimension, then this simplifies to:
+\begin{equation}
+  \Delta U = -\int_{x_1}^{x_2} F dx\,.
+\end{equation}
+To define an object's potential energy, we must always define a
+\textit{reference location}, where we define potential energy to be
+zero. The choice of this location depends on the context of the
+problem being approached.
+
+Unlike with kinetic energy, the presence of multiple objects in a
+system may change each object's potential energy, such as when a force
+must have been applied to move two charged particles close to one
+another. To calculate the total potential energy of a system, imagine
+building the system up in pieces: calculate the work required to move
+the first object into place, then the second, then the third, and so
+on. See the final section (\textbf{Self-bound Sphere}) for an example.
+
+The total energy $E$ of a system is simply the sum of its kinetic and
+potential energies (if we neglect other complicated energies, such as
+magnetic pressure, rotation, thermal energy, etc.):
+\begin{equation}
+  E = K + U\,.
+\end{equation}
+
+
+\section{Gravitation and Circular Motion}\\
+
+Two massive objects ($M$ and $m$) separated by a distance $r$ (or
+displacement vector $\mathbf{r}$) will feel a gravitational force of
+attraction. If they are point-masses (or spheres) the force is simply:
+\begin{align}
+  \mathbf{F} &= -\frac{GMm}{r^3}\mathbf{r}\quad(\mathrm{vector})\\
+  F &= -\frac{GMm}{r^2} \quad (\mathrm{scalar}).
+\end{align}
+
+An object on a circular trajectory must be subject to a
+\textit{centripetal acceleration} directed towards the center of the circle
+in order to remain on the trajectory. The magnitude of the
+acceleration is given by the radius $r$ and velocity $v$ of the trajectory:
+\begin{align}
+  a_{cen} &= \frac{v^2}{r}\,.
+\end{align}
+
+\begin{enumerate}
+\item
+  \label{prob.orbit}
+  A satellite (mass $m$) is on a circular orbit with radius $r$ from
+  the center of the Earth (mass $M$).
+
+  \begin{figure*}[hbt]
+    \plotoneman{circular_orbit}{0.4}
+    \caption{Figure for Problem \ref{prob.orbit}.}
+  \end{figure*}
+
+  \begin{enumerate}
+  \item
+    \label{prob.orbit.1}
+    Solve for the satellite's velocity $v(r)$ as a function of radius,
+    such that the gravitational force balances the required
+    centripetal acceleration.
+  \item
+    \label{prob.orbit.2}
+    Solve for the period $P$ of the orbit.
+  \item
+    \label{prob.orbit.3}
+    Solve for the satellite's kinetic energy $K(r)$ as a function of
+    radius.
+  \item
+    \label{prob.orbit.4}
+    When considering gravity, it is customary to set the potential
+    energy reference point at $r\rightarrow\infty$, since the force is
+    infinite at the origin. Using the fact that $U(r\rightarrow\infty)
+    = 0$, solve for the potential energy $U(r)$ of the satellite.
+
+    This is important enough of a result that I'll give you the answer
+    here, so you can check. The gravitational potential energy of an
+    object with mass $m$ near a mass $M$ is:
+    \begin{equation}
+      U(r) = -\frac{GMm}{r} \label{eq.grav_pot}
+    \end{equation}
+  \item
+    \label{prob.orbit.5}
+    Compute the total energy of the satellite, $E(r)$.
+  \end{enumerate}
+
+\end{enumerate}
+
+\section{Gauss' Law}\\
+
+Newton proved that the gravitational force on an object outside a
+uniform sphere of mass $M$ is the same as that from a point-mass with
+the same mass. Even more generally, the gravitational force
+at a distance $r$ from any object which is \textit{spherically
+  symmetric} simply depends on the \textbf{mass enclosed within that radius},
+$M(<r)$:
+\begin{equation}
+  F(r) = \frac{GmM(<r)}{r^2}\,.
+\end{equation}
+
+This is a consequence of ``Gauss' Law''. If you're interested in a
+rigorous proof of this, talk to Ben or check Wikipedia\footnote{\href{https://en.wikipedia.org/wiki/Gauss's\_law\_for\_gravity}{https://en.wikipedia.org/wiki/Gauss's\_law\_for\_gravity}}.
+
+\begin{enumerate}[resume]
+\item
+  \label{prob.Gauss}
+  Consider a hollow spherical shell, with all of its mass $M$ contained
+  at a radius $R$.
+  
+  \begin{figure*}[hbt]
+    \plotoneman{shell}{0.4}
+    \caption{Figure for Problem \ref{prob.Gauss}.}
+  \end{figure*}
+
+  \begin{enumerate}
+  \item
+    \label{prob.Gauss.1}
+    What is the gravitational force $F(r)$ on a particle with mass $m$
+    when \textit{outside} the sphere ($r > R$)?
+  \item
+    \label{prob.Gauss.2}
+    What is the force $F(r)$ on it when \textit{inside} the sphere ($r
+    < R$)?
+  \end{enumerate}
+\end{enumerate}
+
+\section{Self-bound Sphere}
+
+\begin{enumerate}[resume]
+\item
+  \label{prob.Sphere}
+  In this next problem, we will compute the potential energy $U$ of a
+gravitationally-bound sphere, a quantity which will arise extremely
+often in Astronomy. We will make this computation by imagining
+building up the sphere inside-out, and summing the potential energies
+required to move each slice of the sphere into position from
+infinity\footnote{This is not the only way to reach the correct
+  answer. The same result can be derived outside-in, or in any
+  haphazard order you want. Gauss' law requires the results to be the same.}.
+
+Consider a sphere with mass $M$ and radius $R$ which has constant
+density $\rho$ throughout the interior.
+
+\begin{enumerate}
+\item
+  \label{prob.Sphere.1}
+  Use dimensional analysis to make an order-of-magnitude guess for the
+  potential energy of the sphere. (\textit{HINT: think about
+    eq.~\ref{eq.grav_pot}, and what parameters are available in this problem.})
+\item
+  \label{prob.Sphere.2}
+  Compute $\rho$, and use it to solve for the enclosed mass $M(<r)$
+  as a function of radius. 
+\item
+  \label{prob.Sphere.3}
+  To compute the gravitational potential energy, let's imagine that we
+  have already created a small portion of the sphere with radius $r$,
+  and are now adding a thin shell with thickness $\Delta r$ (see
+  Figure \ref{fig.shell}).
+
+  \begin{figure*}[hbt]
+    \plotoneman{sphere}{0.3}
+    \caption{Figure for Problem \ref{prob.Sphere.3}.}
+    \label{fig.shell}
+  \end{figure*}
+
+  Use eq.~\ref{eq.grav_pot} to compute the additional potential energy
+  $\Delta U$ (in terms of $\Delta r$) from adding this shell.
+
+\item
+  \label{prob.Sphere.4}
+  Convert to the infinitesimal limit ($dU$ in terms of $dr$) and
+  integrate through the whole sphere to find $U$ in terms of $M$ and
+  $R$. How does this answer compare to your initial guess (\ref{prob.Sphere.1})?
+\end{enumerate}
+
+\item
+  \label{prob.limits}
+In \ref{prob.Sphere.1}, you used dimensional analysis to estimate the
+gravitational potential for a sphere of mass $M$ and radius $R$ should
+be something like $U = - \frac{GM^2}{R}$. The full solution is:
+\begin{equation}
+  U = - \alpha \frac{GM^2}{R}\,,
+\end{equation}
+where $\alpha$ is a dimensionless factor of order $1$ that is
+determined by how the mass is concentrated within the sphere.
+
+\begin{enumerate}
+\item
+  \label{prob.limits.1}
+  What is $\alpha$ for a sphere with constant density (see
+  \ref{prob.Sphere.4})?
+
+\item
+  \label{prob.limits.2}
+  If the sphere had higher density in the center than in the outer
+  layers, would $\alpha$ be larger or smaller than the value above?
+\end{enumerate}
+\end{enumerate}
+
+\section{Milky Way Rotation Curve}
+
+\begin{enumerate}[resume]
+
+\item
+  \label{prob.MW}
+  Let's approximate the Milky Way galaxy as a sphere rather than a
+  disk (this is not a terrible assumption, it turns out). We
+  approximate it as having a constant density $\rho$ which extends from
+  $r=0$ to some terminal radius $r=R$, at which point the density goes
+  to zero.
+  \begin{enumerate}
+  \item
+  \label{prob.MW.1}
+    What is the enclosed mass at each radius, $M(<r)$?
+  \item
+  \label{prob.MW.2}
+    If a star or a blob of gas of mass $m$ is in a circular orbit
+    around the Milky Way (with $r < R$), what is its velocity $v(r)$?
+    How does this scale with radius?\footnote{If a function ``scales
+      with radius'' as $r^\alpha$, this is commonly denoted as $f(r)
+      \propto r^\alpha$.}
+  \item
+    \label{prob.MW.3}
+    What about at $r > R$? How does $v(r)$ scale with radius outside
+    the galaxy?
+  \item
+    \label{prob.MW.4}
+    Sketch the entire profile $v(r)$ as a function of
+    radius, from $r=0$ to $r \gg R$. (\textit{HINT: this is most
+      easily shown as a ``log-log'' plot, which Ben will discuss}).
+  \item
+    \label{prob.MW.5}
+    Even though the vast majority of the visible mass of the Milky Way
+    (stars, gas, etc.) is contained within about 15 kpc, there are a
+    few objects orbiting far outside the central galaxy, allowing us
+    to measure $v(r)$. Instead of decreasing with radius, $v(r)$
+    appears to remain constant out to several hundred kpc. What do you
+    think this means? 
+  \end{enumerate}
+
+\end{enumerate}
+
+\end{document}

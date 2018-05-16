@@ -1,0 +1,287 @@
+% 
+\documentclass[11pt]{article}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry} 
+\geometry{letterpaper}
+\usepackage{amssymb, mathtools}
+\usepackage{amsmath, ulem}
+\usepackage{xcolor}
+\usepackage{mathabx}
+\usepackage{hyperref}
+
+% = Customize Section Headings =
+\usepackage[noindentafter]{titlesec}    % default to noindent after
+% sections
+\usepackage{graphicx, enumitem}
+\usepackage{hyperref}
+\titleformat{\subsection}[runin]{\bf}{\small}{\compact}{}[]
+\titleformat{\section}{\bf}{\large}{\compact}{}[]
+\titlespacing{\section}{0pt}{20pt}{2pt}
+\titlespacing{\subsection}{1pt}{8pt}{5pt}
+
+% = Common Astrophysics Symbols =
+\newcommand{\rsol}{R_\odot}
+\newcommand{\msol}{M_\odot}
+\newcommand{\lsol}{L_\odot}
+\newcommand{\E}[1]{\hspace{-0.01in}\times\hspace{-0.02in}10^{#1}}  % Scientific notation, '3\E{8}' --> '3x10^8'
+\newcommand{\sol}[1]{{\noindent\color{blue} #1}}     % Solutions in blue
+\newcommand{\power}[2]{\ensuremath{#1\times 10^{#2}}}
+
+\newcommand{\note}[1]{{\noindent\color{red} \textbf{#1}}} % Notes in red
+\newcommand{\trf}[1]{\textrm{\footnotesize{#1}}}
+\newcommand{\trt}[1]{\textrm{\tiny{#1}}}
+\newcommand{\then}{ \hspace{0.1in} \Longrightarrow \hspace{0.1in} }
+
+\newcommand\plotoneman[2]{\centering \leavevmode
+  \includegraphics[width=#2\linewidth]{#1}}
+
+\renewcommand{\section}[1]{\textbf{\underline{#1}}}
+
+% = Setup Header =
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}   % remove fancyhdr header line
+\lhead{Dynamics \& Virial Theorem}
+\rhead{Banneker Institute 2017}
+\cfoot{\thepage}
+
+\title{Worksheet 4\\Return of the Virial Theorem\\Instructor: Ben Cook}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}                   % add header to first page
+
+\vspace{-0.6in}
+
+Last time, we derived the complete form of the Virial Theorem:
+\begin{align}
+  \frac{1}{2} \frac{d^2I}{dt^2} &= 2K + \sum_i F_i
+  r_i\label{eq.Virial.1}
+  \intertext{We also argued (but did not prove) that the third term
+    represents the potential energy $U$ of the system, giving us:}
+  \frac{1}{2} \frac{d^2I}{dt^2} &= 2K - (n+1) U\label{eq.Virial.2}
+  \intertext{Finally, we showed that the time-average of the left-hand
+  term goes to zero if the system is in equilibrium (and the
+  time-average is over an appropriately long time period), giving us:}
+  2\left<K\right> &= (n+1) \left<U\right> \label{eq.Virial.3}
+  \intertext{For the familiar case of a gravitational system ($n=-2$),
+    we recover:}
+  2\left<K\right> &= -\left<U\right> \label{eq.Virial.4}
+\end{align}
+
+In these final exercises, we will play with these forms of the
+Virial Theorem in a variety of scenarios. 
+
+\begin{enumerate}
+\item \section{Hook's Law}
+  
+  Consider the classic ``mass on a spring'' problem (1D, no gravity or
+  friction). A mass $m$ is attached to a horizontal spring that has
+  spring constant $k$ and is in equilibrium at position $x=0$.
+
+  \begin{figure*}[hbt]
+    \plotoneman{spring}{0.3}
+    \caption{Figure for problem 1.}
+  \end{figure*}
+
+  Hook's law tells us the force on the mass when it is at position
+  $x$ is:
+  \begin{align*}
+    F&= -kx\, \\
+    \intertext{or alternatively,}
+    m \frac{d^2 x}{dt^2} &= - kx\\
+    \intertext{One solution to this equation of motion is sinusoidal
+      motion:}
+    x(t) &= A \cos(\omega t)\,,\\
+    \intertext{where the frequency is given by $\omega = \pm \sqrt{k /
+      m}$.}
+  \end{align*}
+
+  \begin{enumerate}
+  \item
+    Solve for the kinetic energy $K(t)$ of the mass as a function of time.
+  \item
+    Solve for $U(x)$ as a function of position, using $x=0$ as the
+    potential energy reference point.
+  \item
+    Solve for the potential energy $U(t)$ as a function of time.
+  \item
+    Solve for the total energy $E(t)$. Does this energy change in
+    time?
+  \item
+    Confirm that equation \ref{eq.Virial.3} is correct for this system
+    ($n=+1$) by taking the time average of $K$ and $U$ over a period
+    $P = 2\pi\omega$. For your reference, the needed time-averages are:
+    \begin{align*}
+      \left<\cos^2(\omega t)\right>_{2\pi\omega} &=
+      \left<\sin^2(\omega t)\right>_{2\pi\omega} = \frac{1}{2}
+    \end{align*}
+  \item
+    Compute the moment-of-inertia $I(t) = m x^2(t)$ as a function of
+    time.
+  \item
+    Confirm that the non-averaged Virial Theorem (eq.~\ref{eq.Virial.2})
+    is correct at \textit{all times} for this system.
+  \end{enumerate}
+
+\item
+  \section{Dynamical Timescale: How Long is Long Enough?}
+
+  We've talked about applying eq.~\ref{eq.Virial.3} whenever
+  time-averages are taken over ``long enough'' timescales where a
+  system can be said to be in equilibrium. Here, we'll derive a good
+  rule-of-thumb for determining whether a system is in equilibrium.
+
+  Imagine that the kinetic energy of a gravitational system (star,
+  cluster, etc.) suddenly disappeared ($K = 0$). How long would it
+  take before the system collapses entirely?
+
+  Equation \ref{eq.Virial.2} tells us that, in this case:
+  \begin{align*}
+    \frac{1}{2} \frac{d^2I}{dt^2} &= U\,.\\ \intertext{Let's now make
+      an order-of-magnitude estimate (dropping the factor of
+      $\frac{1}{2}$) for this process takes. If the system experiences
+      a change in moment-of-inertia $\Delta I$ in time $\Delta t$, we estimate:}
+    \frac{d^2I}{dt^2} &\approx \frac{\Delta I}{(\Delta t)^2} = U\,.
+    \intertext{If the system collapses entirely, then the
+      moment-of-inertia will go to zero, and $\Delta I = -I$. How much
+      time will this take?}  \frac{-I}{(\Delta t)^2} &\approx
+    U\\ (\Delta t)^2 &\approx
+    \frac{-I}{U}\\ \intertext{Substituting in the moment of
+      inertia $I$ and potential energy $U$ of a constant-density
+      sphere:}
+    (\Delta t)^2 &\approx \frac{-\frac{2}{5} M
+        R^2}{-\frac{3}{5}\frac{GM^2}{R}}\\
+    \Aboxed{\tau_d &\equiv
+      \sqrt{\frac{2 R^3}{3 G M}}}
+  \end{align*}
+  
+  This is the definition of the \textit{dynamical time} $\tau_d$, the
+  shortest timescale over which the moment of inertia could change
+  significantly. \uline{As long as the system does not change drastically
+  (any $\Delta I \ll I$) on the timescale of $\tau_d$, then it can be
+  considered in dynamical equilibrium, and it is valid to use
+  eq.~\ref{eq.Virial.3}.}
+  \begin{enumerate}
+  \item
+    Compute $\tau_d$ for the following objects:
+    \begin{itemize}
+    \item
+      The Sun (use the values on the final page of
+      the worksheet).
+    \item
+      The Milky Way ($M\approx 10^{12} M_\odot$, $R\approx 100$ kpc).
+    \item
+      The Coma Cluster ($M\approx 10^{15} M_\odot$, $R\approx 1$ Mpc).
+    \item
+      A theoretical ``Super-Duper-Cluster'' with mass $M\approx 10^{16}
+      M_\odot$ and radius $R = 30$ Mpc.
+    \end{itemize}
+  \item
+    Which of these objects do you think are likely to be in equilibrium?
+    Think about whether you would expect these systems to change
+    drastically within the dynamical timescales calculated above.  How
+    might you judge the ``stability'' of each system?  Rank them in order
+    of decreasing ``stability'' according to this judgment.
+  \end{enumerate}
+
+\item
+  \section{Ideal Gas Law}
+  
+  Consider a cubic box (side length $s$) with $N$ gas particles at
+  temperature $T$ and average pressure $P$, with the center of the box
+  at the origin.
+
+  Because the box is in equilibrium, we will use the Virial Theorem of
+  the form:
+  \begin{align}
+    2\left<K\right> &= - \left<\sum_i F_i r_i\right> \label{eq.Virial.5}
+  \end{align}
+  \begin{enumerate}
+  \item
+    What is $2\left<K\right>$? (\textit{HINT: think thermal energy})
+  \item
+    What is the average \textit{TOTAL} force $\sum_i F_i$ applied by
+    the gas particles on all surfaces of the box? By Newton's third
+    law, the gas particles will feel a total force with the same
+    magnitude, but in the opposite direction.
+  \item
+    At what position $r$ from the center of the box is this force
+    \textit{always} applied to the particles?
+  \item
+    Use your answers to the above, along with eq.~\ref{eq.Virial.5} to
+    derive the Ideal Gas Law:
+    \begin{align*}
+      P V &= N k T\,.
+    \end{align*}
+    If you're getting stuck with a minus sign, remember to consider
+    what direction the force $\sum_i F_i$ on the gas particles is in,
+    relative to their displacement $r$ from the center of the box.
+  \end{enumerate}
+
+\item
+  \section{Radius of Electron Orbitals}
+
+  We will now use the Virial Theorem to derive the radius $r_n$ of the
+  n$^{\mathrm{th}}$ Hydrogen orbital. We are playing fast-and-loose
+  with Quantum Mechanics (the ``time-averages'' $\left<\cdots\right>$
+  are really ``quantum expectation values'' $\left<\cdots\right>$) but
+  our answers are accurate to factors of a few.
+
+  Note: this problem is done in CGS units. 
+
+  \begin{enumerate}
+  \item
+    The electron is bound to the Hydrogen nucleus via an $r^{-2}$ central
+    force. The potential energy of the electron at radius $r$ is given
+    by:
+    \begin{align}
+      U(r) &= -\frac{e^2}{r}\,. \label{eq.electron}
+    \end{align}
+    Use the Virial Theorem to derive the expectation value of total
+    energy $\left<E(r)\right>$ of an electron as a function of
+    position.
+  \item
+    From quantum mechanics, we can derive that an electron in the
+    n$^{\textrm{th}}$ eigenstate has energy:
+    \begin{align}
+      E_n &= -\frac{1}{2}\frac{m_e e^4}{n^2 \hbar^2}\,.\label{eq.quantum}
+    \end{align}
+    To an order of magnitude, we can say:
+    \begin{align*}
+      \left<\frac{1}{r_n}\right> &\approx
+      \frac{1}{\left<r_n\right>}\,.
+    \end{align*}
+    Using the above, prove that:
+    \begin{align*}
+      \left<r_n\right> &\approx n^2 a_0\,,\\
+      \intertext{where $a_0$ is the ``Bohr Radius'':}
+      a_0 &\equiv \frac{\hbar^2}{m_e e^2}\,.
+    \end{align*}
+    
+  \end{enumerate}
+  
+\end{enumerate}
+
+\section{Useful Constants and Conversions}\\
+
+\begin{tabular}{|l|l|l|l|}
+  \hline
+  Name & Symbol & Value (SI) & Value (CGS)\\\hline\hline
+  %=======================
+  Mass of Sun & $M_\odot$ & \power{2.0}{30} kg & \power{2.0}{33}
+  g\\\hline
+  Radius of Sun & $R_\odot$ & \power{7.0}{8} m & \power{7.0}{10} cm\\\hline
+  Luminosity of Sun & $L_\odot$ & \power{3.9}{26} J s$^{-1}$ &
+  \power{3.9}{33} erg s$^{-1}$\\\hline
+  Gravitational Constant & $G$ & \power{6.7}{-11} m$^3$kg$^{-1}$s$^{-2}$ &
+  \power{6.7}{-8} cm$^3$g$^{-1}$s$^{-2}$\\\hline
+  Kilometer & km & $10^3$ m & $10^5$ cm \\\hline
+  Kiloparsec & kpc & \power{3.1}{19} m & \power{3.1}{21} cm\\\hline
+  Megaparsec & Mpc & \power{3.1}{22} m & \power{3.1}{24} cm\\\hline
+  Year & yr & \power{3.1}{7} s & -- \\\hline
+  Giga-year & Gyr & \power{3.1}{16} s & -- \\\hline
+\end{tabular}
+
+
+\end{document}

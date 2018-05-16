@@ -1,0 +1,495 @@
+% 
+\documentclass[11pt]{article}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry} 
+\geometry{letterpaper}
+\usepackage{amssymb, mathtools}
+\usepackage{amsmath, ulem}
+\usepackage{xcolor}
+\usepackage{mathabx}
+\usepackage{hyperref}
+
+% = Customize Section Headings =
+\usepackage[noindentafter]{titlesec}    % default to noindent after
+% sections
+\usepackage{graphicx, enumitem}
+\usepackage{hyperref}
+\titleformat{\subsection}[runin]{\bf}{\small}{\compact}{}[]
+\titleformat{\section}{\bf}{\large}{\compact}{}[]
+\titlespacing{\section}{0pt}{20pt}{2pt}
+\titlespacing{\subsection}{1pt}{8pt}{5pt}
+
+% = Common Astrophysics Symbols =
+\newcommand{\rsol}{R_\odot}
+\newcommand{\msol}{M_\odot}
+\newcommand{\lsol}{L_\odot}
+\newcommand{\E}[1]{\hspace{-0.01in}\times\hspace{-0.02in}10^{#1}}  % Scientific notation, '3\E{8}' --> '3x10^8'
+\newcommand{\sol}[1]{{\noindent\color{blue} #1}}     % Solutions in blue
+\newcommand{\power}[2]{\ensuremath{#1\times 10^{#2}}}
+
+\newcommand{\note}[1]{{\noindent\color{red} \textbf{#1}}} % Notes in red
+\newcommand{\trf}[1]{\textrm{\footnotesize{#1}}}
+\newcommand{\trt}[1]{\textrm{\tiny{#1}}}
+\newcommand{\then}{ \hspace{0.1in} \Longrightarrow \hspace{0.1in} }
+
+\newcommand\plotoneman[2]{\centering \leavevmode
+  \includegraphics[width=#2\linewidth]{#1}}
+
+\renewcommand{\section}[1]{\textbf{\underline{#1}}}
+
+% = Setup Header =
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}   % remove fancyhdr header line
+\lhead{Dynamics \& Virial Theorem}
+\rhead{Banneker Institute 2017}
+\cfoot{\thepage}
+
+\title{Worksheet 3\\The Virial Theorem Strikes Back\\Instructor: Ben Cook}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}                   % add header to first page
+
+\vspace{-0.6in}
+
+Last time, we derived the complete form of the Virial Theorem:
+\begin{align}
+  \frac{1}{2} \frac{d^2I}{dt^2} &= 2K + \sum_i F_i
+  r_i\label{eq.Virial.1}
+  \intertext{We also argued (but did not prove) that the third term
+    represents the potential energy $U$ of the system, giving us:}
+  \frac{1}{2} \frac{d^2I}{dt^2} &= 2K - (n+1) U\label{eq.Virial.2}
+  \intertext{Finally, we showed that the time-average of the left-hand
+  term goes to zero if the system is in equilibrium (and the
+  time-average is over an appropriately long time period), giving us:}
+  2\left<K\right> &= (n+1) \left<U\right> \label{eq.Virial.3}
+  \intertext{For the familiar case of a gravitational system ($n=-2$),
+    we recover:}
+  2\left<K\right> &= -\left<U\right> \label{eq.Virial.4}
+\end{align}
+
+In these final exercises, we will play with these forms of the
+Virial Theorem in a variety of scenarios. \\
+
+%\section{Proving the Virial Theorem}\\
+%
+%The time has finally come to \textit{prove} the Virial Theorem! Don't
+%worry: while this may seem like a daunting task, it's actually quite
+%straight-forward if you take it a step at a time.
+%
+%\begin{enumerate}
+%\item
+%  We will begin with the definition of the \textit{moment of inertia} $I$
+%  for a large system of particles, which should look
+%  somewhat familiar. The moment of inertia simply depends on the mass
+%  $m$ and position $r$ of each particle in the system. In both the
+%  vector and scalar versions:
+%  \begin{align*}
+%    I &\equiv \sum_i m_i \mathbf{r}_i \cdot \mathbf{r}_i\quad (\mathrm{vector})\\
+%     &\equiv \sum_i m_i r_i^2 \quad (\textrm{1-D})\,.
+%  \end{align*}
+%  Feel free to continue with the proof either in 1-D, or to work with
+%  the vector forms, if you're comfortable with vector dot-products.
+%  
+%  \begin{enumerate}
+%  \item
+%    Take one derivative w.r.t.~time to show that:
+%    \begin{align*}
+%      \frac{dI}{dt} &= 2Q\,,\\
+%      \intertext{where $Q$ is the so-called ``Virial of Claussius'',
+%        given by:}
+%      Q &= \sum_i \mathbf{p}_i \cdot \mathbf{r}_i \quad (\mathrm{vector})\\
+%       &= \sum_i p_i r_i \quad (\textrm{1-D})
+%    \end{align*}
+%  \item
+%    Take a second derivative w.r.t~time and show that:
+%    \begin{align}
+%      \Aboxed{\frac{1}{2} \frac{d^2I}{dt^2} &= 2K + \sum_i \mathbf{F}_i \cdot
+%      \mathbf{r}_i} \quad (\textrm{Virial Theorem, full vector form}) \label{eq.Virial.vector} \\
+%      \Aboxed{\frac{1}{2} \frac{d^2I}{dt^2} &= 2K + \sum_i F_i r_i}
+%      \quad (\textrm{Virial Theorem, full 1-D form})\label{eq.Virial.scalar}
+%    \end{align}
+%  \end{enumerate}
+%\end{enumerate}
+%\section{Final Steps}
+%
+%If the system of particles are interacting via a \textit{power-law
+%  central force} which obeys:
+%\begin{align*}
+%  F &\propto - r^n\,,
+%\end{align*}
+%for some power $n$\footnote{$n=-2$ for gravity or electrostatics, $n=1$
+%  for Hook's Law for springs, etc.}, then the potential energy of
+%the entire system can be proven to be:
+%\begin{align}
+%  U &= -\frac{1}{n+1} \sum_i \mathbf{F}_i \cdot \mathbf{r}_i\quad(\mathrm{vector})\label{eq.U.vector}\\
+%  &= -\frac{1}{n+1} \sum_i F_i r_i \quad (\textrm{1-D})\label{eq.U.scalar}
+%\end{align}
+%
+%The \textit{time-average} of the left-hand side over some time
+%interval $\tau$ is:
+%\begin{align}
+%  \left<\frac{1}{2}\frac{d^2I}{dt^2}\right>_\tau &=
+%  \frac{1}{2}\left( \frac{1}{\tau} \int_0^\tau \frac{d^2I}{dt^2}
+%  dt\right) \nonumber\\ &=
+%  \frac{1}{2\tau}\left(\frac{dI}{dt}\bigg|_\tau -
+%  \frac{dI}{dt}\bigg|_0\right) \nonumber\\ \intertext{If the
+%    system is in equilibrium, then the term in parentheses is
+%    bounded (will never reach infinity). Then, by averaging over a
+%    large enough $\tau$:}
+%  \Aboxed{\left<\frac{1}{2}\frac{d^2I}{dt^2}\right>_\tau&\approx 0}
+%  \quad(\textrm{If $\tau$ large enough})\label{eq.time}
+%\end{align}
+%
+%If the system is periodic, then we can choose $\tau$ so that the
+%time-averages $\left<\cdots\right>$ are over a period, so that the
+%difference in parentheses goes to zero. If it is not strictly
+%periodic, then you can just choose an appropriately large value of
+%$\tau$. If the system is in ``equilibrium'', then the terms in the
+%parentheses will remain small, and
+%$\left<\frac{1}{2}\frac{d^2I}{dt^2}\right>$ will approach zero.
+%
+%\begin{enumerate}[resume]
+%\item
+%  Substitute equations \ref{eq.U.vector} or \ref{eq.U.scalar} into
+%  the complete Virial Theorem (\ref{eq.Virial.vector} or
+%  \ref{eq.Virial.scalar}), and then take a time-average of both
+%  sides. Use the limit given in \ref{eq.time} to conclude:
+%  \begin{align}
+%    \Aboxed{2\left<K\right> &= (n+1) \left<U\right>}\\ (\textrm{Virial
+%      Theorem, system in}&\textrm{ equilibrium, central force
+%      $F\propto-r^n$})\nonumber
+%  \end{align}
+%\end{enumerate}
+%
+\section{Dark Matter in Galaxy Clusters}\\
+
+The most well-known and frequently-cited use of the Virial Theorem was
+in the discovery of dark matter. By applying the theorem to the
+velocities of galaxies in a galaxy cluster, we can make an estimate of
+the total mass of the cluster.
+
+\begin{enumerate}
+\item
+  We will model a galaxy cluster as a sphere with mass $M$ (comprised
+  of many galaxies) and radius $R$.
+  \begin{enumerate}
+  \item
+    We can use the redshifts of each galaxy to try to measure the
+    velocity-dispersion $\left<v^2\right>$ of the cluster. But we can
+    only actually measure the component $\left<v_r^2\right>$
+    \textit{along the line of sight}; we can't hope to measure their
+    velocity in the plane of the sky (we'd have to wait for millions
+    of years).
+
+    How does the true 3D \textit{velocity dispersion}
+    $\left<v^2\right>_{3D}$ relate to the observed radial velocity
+    dispersion $\left<v_r^2\right>$, if we assume the clusters are on
+    randomly-oriented orbits?
+    
+  \item
+    Using the Virial Theorem to connect the kinetic and potential
+    energies of the cluster, derive an estimate of the total mass $M$
+    as a function of the velocity dispersion $\left<v^2\right>_{3D}$
+    and the radius $R$.
+
+  \item
+    You observe the galaxies in the cluster to have a radial velocity
+    dispersion $\left<v_r^2\right> = 10^6$ km$^2$s$^{-2}$, and estimate
+    it to have a size $R = 1.5$ Mpc. What is your prediction for the
+    total mass $M$ in solar masses ($M_\odot$)?
+
+  \item
+    Measuring the light coming from all the cluster galaxies, you
+    measure the total luminosity of the cluster to be $L = 10^{13}
+    L_\odot$. What is the ``mass-to-light'' ratio $M/L$ in solar
+    units. Does anything seem strange?
+
+  \item
+    The Virial Theorem implies there is much more mass in clusters
+    than you can explain from the observed
+    galaxies. \underline{Congratulations, you've just discovered Dark
+      Matter!}
+
+    But, being the skeptical scientist you are, you want to make sure
+    you've considered all other possibilities. What are some
+    alternative ways you could explain your results?
+
+    \begin{itemize}
+    \item
+      Think about the assumptions you've made in this analysis. What
+      ways can you think of to argue that they are valid?
+    \item
+      Maybe there were errors in the data you used. How far off would
+      different measurements have to be to explain your results? Think critically
+      about how each value was \textit{actually measured} by
+      astronomers, and where the most likely places are to have gotten
+      things wrong.
+    \end{itemize}
+  \end{enumerate}
+\end{enumerate}  
+
+\section{Fritz Zwicky, Vera Rubin, and Dark Matter}\\
+
+The analysis you just completed was first published by Caltech
+Astronomer Fritz Zwicky in 1933, not long after it was first
+conclusively proven that the ``nebulae'' seen around the Milky Way
+were in fact distant galaxies. Zwicky compiled measurements of
+galactic redshifts in several clusters, most notably the Coma cluster,
+and used the Virial Theorem to argue that there must be huge amounts
+of ``dark matter'' there to account for the large masses.
+
+\begin{enumerate}[resume]
+\item
+  Read the provided pages from Zwicky's 1933 paper (translated from
+  German) which first argued for the existence of dark matter. It
+  should be quite straight-forward, as you've just worked through the
+  same exact problem!
+
+  If you're interested, you can find the full article at
+
+  \href{http://spiff.rit.edu/classes/phys440/lectures/gal\_clus/zwicky\_1933\_en.pdf}{http://spiff.rit.edu/classes/phys440/lectures/gal\_clus/zwicky\_1933\_en.pdf}.
+\end{enumerate}
+
+Zwicky was an edgy, often confrontational personality, whose life now
+makes for a very entertaining study. But at the time, Zwicky's
+discovery of dark matter was largely ignored, as were many of his
+other groundbreaking ideas. In a short biography of Zwicky, Professor
+Stephen Maurer wrote: ``When researchers talk about neutron stars,
+dark matter, and gravitational lenses, they all start the same way:
+'Zwicky noticed this problem in the 1930s. Back then, nobody
+listened...'''.
+
+Zwicky's dark matter hypothesis finally gained acceptance in the
+1970s, with huge credit due to Vera Cooper Rubin and Kent Ford of the
+Carnegie Institute. Rubin and Ford measured the rotation curve of the
+Andromeda Galaxy and showed that dark matter must exist around
+galaxies (a problem you also have tackled, back in Worksheet 1). Rubin
+was a true vanguard for women in astronomy (only the second woman
+elected to the National Academy of Sciences), and overcame large
+obstacles in a field determined to deter her from success. Sadly, she
+passed away last December (2016). Many in the field believed her
+work strongly deserving of the Nobel Prize, but since they are not
+awarded posthumously, this recognition will never be granted to her.
+
+\begin{enumerate}[resume]
+\item
+  Spend some time researching the story of Fritz Zwicky's entertaining
+  personality, and Vera Rubin's pioneering journey.
+\end{enumerate}
+
+\section{Hook's Law}
+
+\begin{enumerate}[resume]
+\item 
+  Consider the classic ``mass on a spring'' problem (1D, no gravity or
+  friction). A mass $m$ is attached to a horizontal spring that has
+  spring constant $k$ and is in equilibrium at position $x=0$.
+
+  \begin{figure*}[hbt]
+    \plotoneman{spring}{0.3}
+    \caption{Figure for problem 4..}
+  \end{figure*}
+
+  Hook's law tells us the force on the mass when it is at position
+  $x$ is:
+  \begin{align}
+    F&= -kx\, \label{eq.Hook1}\\
+    \intertext{or alternatively,}
+    m \frac{d^2 x}{dt^2} &= - kx \label{eq.Hook2}\\
+    \intertext{One solution to this equation of motion is sinusoidal
+      motion:}
+    x(t) &= A \cos(\omega t)\,, \label{eq.Hook3}\\
+    \intertext{where the frequency is given by $\omega = \pm \sqrt{k /
+      m}$.}
+  \end{align}
+
+  \begin{enumerate}
+  \item
+    Solve for the kinetic energy $K(t)$ of the mass as a function of time.
+  \item
+    Solve for $U(x)$ as a function of position, using $x=0$ as the
+    potential energy reference point.
+  \item
+    Solve for the potential energy $U(t)$ as a function of time.
+  \item
+    Solve for the total energy $E(t)$. Does this energy change in
+    time?
+  \item
+    Confirm that equation \ref{eq.Virial.3} is correct for this system
+    ($n=+1$) by taking the time average of $K$ and $U$ over a period
+    $P = 2\pi\omega$. For your reference, the needed time-averages are:
+    \begin{align}
+      \left<\cos^2(\omega t)\right>_{2\pi\omega} &=
+      \left<\sin^2(\omega t)\right>_{2\pi\omega} = \frac{1}{2} \label{eq.Hook4}
+    \end{align}
+  \item
+    Compute the moment-of-inertia $I(t) = m x^2(t)$ as a function of
+    time.
+  \item
+    Confirm that the non-averaged Virial Theorem (eq.~\ref{eq.Virial.2})
+    is correct at \textit{all times} for this system.
+  \end{enumerate}
+
+\item
+  \section{Dynamical Timescale: How Long is Long Enough?}
+
+  We've talked about applying eq.~\ref{eq.Virial.3} whenever
+  time-averages are taken over ``long enough'' timescales where a
+  system can be said to be in equilibrium. Here, we'll derive a good
+  rule-of-thumb for determining whether a system is in equilibrium.
+
+  Imagine that the kinetic energy of a gravitational system (star,
+  cluster, etc.) suddenly disappeared ($K = 0$). How long would it
+  take before the system collapses entirely?
+
+  Equation \ref{eq.Virial.2} tells us that, in this case:
+  \begin{align}
+    \frac{1}{2} \frac{d^2I}{dt^2} &= U\,.\\ \intertext{Let's now make
+      an order-of-magnitude estimate (dropping the factor of
+      $\frac{1}{2}$) for this process takes. If the system experiences
+      a change in moment-of-inertia $\Delta I$ in time $\Delta t$, we estimate:}
+    \frac{d^2I}{dt^2} &\approx \frac{\Delta I}{(\Delta t)^2} = U\,.
+    \intertext{If the system collapses entirely, then the
+      moment-of-inertia will go to zero, and $\Delta I = -I$. How much
+      time will this take?}  \frac{-I}{(\Delta t)^2} &\approx
+    U\\ (\Delta t)^2 &\approx
+    \frac{-I}{U}\\ \intertext{Substituting in the moment of
+      inertia $I$ and potential energy $U$ of a constant-density
+      sphere:}
+    (\Delta t)^2 &\approx \frac{-\frac{2}{5} M
+        R^2}{-\frac{3}{5}\frac{GM^2}{R}}\\
+    \Aboxed{\tau_d &\equiv
+      \sqrt{\frac{2 R^3}{3 G M}}}\label{eq.dynamical}
+  \end{align}
+  
+  This is the definition of the \textit{dynamical time} $\tau_d$, the
+  shortest timescale over which the moment of inertia could change
+  significantly. \uline{As long as the system does not change drastically
+  (any $\Delta I \ll I$) on the timescale of $\tau_d$, then it can be
+  considered in dynamical equilibrium, and it is valid to use
+  eq.~\ref{eq.Virial.3}.}
+  \begin{enumerate}
+  \item
+    Compute $\tau_d$ for the following objects:
+    \begin{itemize}
+    \item
+      The Sun (use the values on the final page of
+      the worksheet).
+    \item
+      The Milky Way ($M\approx 10^{12} M_\odot$, $R\approx 100$ kpc).
+    \item
+      The Coma Cluster ($M\approx 10^{15} M_\odot$, $R\approx 1$ Mpc).
+    \item
+      A theoretical ``Super-Duper-Cluster'' with mass $M\approx 10^{16}
+      M_\odot$ and radius $R = 30$ Mpc.
+    \end{itemize}
+  \item
+    Which of these objects do you think are likely to be in equilibrium?
+    Think about whether you would expect these systems to change
+    drastically within the dynamical timescales calculated above.  How
+    might you judge the ``stability'' of each system?  Rank them in order
+    of decreasing ``stability'' according to this judgment.
+  \end{enumerate}
+
+\item
+  \section{Ideal Gas Law}
+  
+  Consider a cubic box (side length $s$) with $N$ gas particles at
+  temperature $T$ and average pressure $P$, with the center of the box
+  at the origin.
+
+  Because the box is in equilibrium, we will use the Virial Theorem of
+  the form:
+  \begin{align}
+    2\left<K\right> &= - \left<\sum_i F_i r_i\right> \label{eq.Virial.5}
+  \end{align}
+  \begin{enumerate}
+  \item
+    What is $2\left<K\right>$? (\textit{HINT: think thermal energy})
+  \item
+    What is the average \textit{TOTAL} force $\sum_i F_i$ applied by
+    the gas particles on all surfaces of the box? By Newton's third
+    law, the gas particles will feel a total force with the same
+    magnitude, but in the opposite direction.
+  \item
+    At what position $r$ from the center of the box is this force
+    \textit{always} applied to the particles?
+  \item
+    Use your answers to the above, along with eq.~\ref{eq.Virial.5} to
+    derive the Ideal Gas Law:
+    \begin{align*}
+      P V &= N k T\,.
+    \end{align*}
+    If you're getting stuck with a minus sign, remember to consider
+    what direction the force $\sum_i F_i$ on the gas particles is in,
+    relative to their displacement $r$ from the center of the box.
+  \end{enumerate}
+
+\item
+  \section{Radius of Electron Orbitals}
+
+  We will now use the Virial Theorem to derive the radius $r_n$ of the
+  n$^{\mathrm{th}}$ Hydrogen orbital. We are playing fast-and-loose
+  with Quantum Mechanics (the ``time-averages'' $\left<\cdots\right>$
+  are really ``quantum expectation values'' $\left<\cdots\right>$) but
+  our answers are accurate to factors of a few.
+
+  Note: this problem is done in CGS units. 
+
+  \begin{enumerate}
+  \item
+    The electron is bound to the Hydrogen nucleus via an $r^{-2}$ central
+    force. The potential energy of the electron at radius $r$ is given
+    by:
+    \begin{align}
+      U(r) &= -\frac{e^2}{r}\,. \label{eq.electron}
+    \end{align}
+    Use the Virial Theorem to derive the expectation value of total
+    energy $\left<E(r)\right>$ of an electron as a function of
+    position.
+  \item
+    From quantum mechanics, we can derive that an electron in the
+    n$^{\textrm{th}}$ eigenstate has energy:
+    \begin{align}
+      E_n &= -\frac{1}{2}\frac{m_e e^4}{n^2 \hbar^2}\,.\label{eq.quantum}
+    \end{align}
+    To an order of magnitude, we can say:
+    \begin{align}
+      \left<\frac{1}{r_n}\right> &\approx
+      \frac{1}{\left<r_n\right>}\,.
+    \end{align}
+    Using the above, prove that:
+    \begin{align}
+      \left<r_n\right> &\approx n^2 a_0\,,\\
+      \intertext{where $a_0$ is the ``Bohr Radius'':}
+      a_0 &\equiv \frac{\hbar^2}{m_e e^2}\,.
+    \end{align}
+    
+  \end{enumerate}
+  
+\end{enumerate}
+
+%\newpage
+\section{Useful Constants and Conversions}\\
+
+\begin{tabular}{|l|l|l|l|}
+  \hline
+  Name & Symbol & Value (SI) & Value (CGS)\\\hline\hline
+  %=======================
+  Mass of Sun & $M_\odot$ & \power{2.0}{30} kg & \power{2.0}{33} g\\\hline
+  Radius of Sun & $R_\odot$ & \power{7.0}{8} m & \power{7.0}{10} cm\\\hline
+  Luminosity of Sun & $L_\odot$ & \power{3.9}{26} J s$^{-1}$ &
+  \power{3.9}{33} erg s$^{-1}$\\\hline
+  Gravitational Constant & $G$ & \power{6.7}{-11} m$^3$kg$^{-1}$s$^{-2}$ &
+  \power{6.7}{-8} cm$^3$g$^{-1}$s$^{-2}$\\\hline
+  Kilometer & km & $10^3$ m & $10^5$ cm \\\hline
+  Kiloparsec & kpc & \power{3.1}{19} m & \power{3.1}{21} cm\\\hline
+  Megaparsec & Mpc & \power{3.1}{22} m & \power{3.1}{24} cm\\\hline
+  Year & yr & \power{3.1}{7} s & -- \\\hline
+  Giga-year & Gyr & \power{3.1}{16} s & -- \\\hline
+\end{tabular}
+
+
+\end{document}
